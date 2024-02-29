@@ -9,6 +9,7 @@ namespace LevchenkoVladWebApplication.Models
         public int Id { get; set; }
         [Required]
         [DisplayName("Category Name")]
+        [MaxLength(15)]
         public string Name { get; set; }
     }
 }

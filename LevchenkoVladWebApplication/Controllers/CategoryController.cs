@@ -1,6 +1,7 @@
 ﻿using LevchenkoVladWebApplication.Data;
 using LevchenkoVladWebApplication.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace LevchenkoVladWebApplication.Controllers
 {
@@ -23,9 +24,19 @@ namespace LevchenkoVladWebApplication.Controllers
         [HttpPost]
         public IActionResult Create(Category category)
         {
-            _databaseContext.CategoriesTable.Add(category);
-            _databaseContext.SaveChanges();
-            return RedirectToAction("Index");
+            //Custom validation that check do the name of the category have digit or not
+            if (char.IsDigit(category.Name, 0))
+            {
+                ModelState.AddModelError("name", "The category name can't have digits!");
+            }
+
+            if(ModelState.IsValid)
+            {
+                _databaseContext.CategoriesTable.Add(category);
+                _databaseContext.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
         }
     }
 }
