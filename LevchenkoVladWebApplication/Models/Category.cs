@@ -2,7 +2,7 @@
 
 namespace LevchenkoVladWebApplication.Models
 {
-    public class Catagory
+    public class Category
     {
         [Key]
         public int Id { get; set; }
