@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 //Services
 var builder = WebApplication.CreateBuilder(args);
 //Controllers and Views
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 //Database
 builder.Services.AddDbContext<PortfolioDbContext>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
