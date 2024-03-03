@@ -3,10 +3,7 @@
     ViewData["Title"] = "Education";
 }
 
-@if(TempData["success"] != null)
-{
-    <div class="text-primary">@TempData["success"]</div>
-}
+<partial name="_Notification" />
 
 <h1>Category List:</h1>
 
