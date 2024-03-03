@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace LevchenkoVladWebApplication.Migrations
+namespace Portfolio.DataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class AddCategoryTableToDb : Migration

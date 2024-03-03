@@ -1,7 +1,6 @@
-﻿using LevchenkoVladWebApplication.Data;
-using LevchenkoVladWebApplication.Models;
+﻿using Portfolio.DataAccess.Data;
+using Portfolio.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 
 namespace LevchenkoVladWebApplication.Controllers
 {

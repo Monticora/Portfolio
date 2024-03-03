@@ -1,7 +1,7 @@
-﻿using LevchenkoVladWebApplication.Models;
+﻿using Portfolio.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace LevchenkoVladWebApplication.Data
+namespace Portfolio.DataAccess.Data
 {
     public class PortfolioDbContext : DbContext
     {

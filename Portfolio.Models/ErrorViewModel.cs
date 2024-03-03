@@ -1,4 +1,4 @@
-namespace LevchenkoVladWebApplication.Models
+namespace Portfolio.Models
 {
     public class ErrorViewModel
     {

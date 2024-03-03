@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace LevchenkoVladWebApplication.Models
+namespace Portfolio.Models
 {
     public class Category
     {
@@ -10,6 +10,6 @@ namespace LevchenkoVladWebApplication.Models
         [Required]
         [DisplayName("Category Name")]
         [MaxLength(15)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
     }
 }
