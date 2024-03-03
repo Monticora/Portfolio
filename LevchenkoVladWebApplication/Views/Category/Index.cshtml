@@ -2,6 +2,12 @@
 @{
     ViewData["Title"] = "Education";
 }
+
+@if(TempData["success"] != null)
+{
+    <div class="text-primary">@TempData["success"]</div>
+}
+
 <h1>Category List:</h1>
 
 <a asp-controller="Category" asp-action="Create">

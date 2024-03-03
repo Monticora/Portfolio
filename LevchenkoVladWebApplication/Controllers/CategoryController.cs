@@ -34,6 +34,9 @@ namespace LevchenkoVladWebApplication.Controllers
             {
                 _databaseContext.CategoriesTable.Add(category);
                 _databaseContext.SaveChanges();
+
+                TempData["success"] = "Category created successfully";
+
                 return RedirectToAction("Index");
             }
             return View();
@@ -66,6 +69,9 @@ namespace LevchenkoVladWebApplication.Controllers
             {
                 _databaseContext.CategoriesTable.Update(category);
                 _databaseContext.SaveChanges();
+
+                TempData["success"] = "Category updated successfully";
+
                 return RedirectToAction("Index");
             }
             return View();
@@ -96,6 +102,9 @@ namespace LevchenkoVladWebApplication.Controllers
             }
             _databaseContext.CategoriesTable.Remove(category);
             _databaseContext.SaveChanges();
+
+            TempData["success"] = "Category deleted successfully";
+
             return RedirectToAction("Index");
         }
     }
