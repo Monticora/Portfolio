@@ -2,8 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Portfolio.DataAccess.IRepository;
 
-namespace LevchenkoVladWebApplication.Controllers
+namespace LevchenkoVladWebApplication.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -29,7 +30,7 @@ namespace LevchenkoVladWebApplication.Controllers
                 ModelState.AddModelError("name", "The category name can't have digits!");
             }
 
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _unitOfWork.CategoryRepository.Add(category);
                 _unitOfWork.Save();
@@ -41,14 +42,14 @@ namespace LevchenkoVladWebApplication.Controllers
         }
         public IActionResult Edit(int? id)
         {
-            if(id == null || id == 0)
+            if (id == null || id == 0)
             {
                 return NotFound();
             }
 
             Category? categorFromDB = _unitOfWork.CategoryRepository.GetFirstOrDefuoult(item => item.Id == id);
 
-            if (categorFromDB == null) 
+            if (categorFromDB == null)
             {
                 return NotFound();
             }
