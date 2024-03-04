@@ -1,8 +1,6 @@
 ﻿using Portfolio.DataAccess.Data;
 using Portfolio.DataAccess.IRepository;
 using Portfolio.Models;
-using System.Linq.Expressions;
-
 namespace Portfolio.DataAccess.Repository
 {
     public class CategoryRepository : RepositoryProccess<Category>, ICategoryRepository

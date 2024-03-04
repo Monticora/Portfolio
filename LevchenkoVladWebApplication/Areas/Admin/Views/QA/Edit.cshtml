@@ -1,0 +1,28 @@
+﻿@model QuestionAndAnswer
+@{
+    ViewData["Title"] = "Edit QA";
+}
+<form method="post">
+    <input asp-for="Id" hidden />
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Edit QA</h2>
+            <hr />
+        </div>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="mb-3">
+            <label asp-for="Question"></label>
+            <input asp-for="Question" type="text" class="form-control" />
+            <span asp-validation-for="Question" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Answer"></label>
+            <input asp-for="Answer" type="text" class="form-control" />
+            <span asp-validation-for="Answer" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary" styly="width:150px">Update</button>
+        <a asp-controller="QA" asp-action="Index" class="btn btn-secondary" style="width:150px">
+            Back to List
+        </a>
+    </div>
+</form>

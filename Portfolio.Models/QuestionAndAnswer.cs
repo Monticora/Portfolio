@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Portfolio.Models
 {
@@ -16,5 +17,8 @@ namespace Portfolio.Models
         public string? Question { get; set; }
         [Required]
         public string? Answer { get; set; }
+        public int CategoryId { get; set; }
+        [ForeignKey("CategoryId")]
+        public Category Category { get; set; }
     }
 }

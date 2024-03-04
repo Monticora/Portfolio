@@ -1,0 +1,33 @@
+﻿@model QuestionAndAnswer
+@{
+    ViewData["Title"] = "Create QA";
+}
+<form method="post">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Create QA</h2>
+            <hr/>
+        </div>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="mb-3">
+            <label asp-for="Question"></label>
+            <input asp-for="Question" type="text" class="form-control"/>
+            <span asp-validation-for="Question" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Answer"></label>
+            <input asp-for="Answer" type="text" class="form-control" />
+            <span asp-validation-for="Answer" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <select asp-for="CategoryId" asp-items="ViewBag.CategoryList">
+                <option disabled selected>Select Category</option>
+            </select>
+            <span asp-validation-for="CategoryId" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary" styly="width:150px">Create</button>
+        <a asp-controller="QA" asp-action="Index" class="btn btn-secondary" style="width:150px">
+            Back to List
+        </a>
+    </div>
+</form>
