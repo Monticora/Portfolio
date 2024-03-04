@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Portfolio.DataAccess.Data;
+using Portfolio.DataAccess.IRepository;
+using Portfolio.DataAccess.Repository;
 
 //Services
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +10,9 @@ builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 //Database
 builder.Services.AddDbContext<PortfolioDbContext>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+
 //Building everything
 var app = builder.Build();
 

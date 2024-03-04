@@ -1,19 +1,20 @@
 ﻿using Portfolio.DataAccess.Data;
 using Portfolio.Models;
 using Microsoft.AspNetCore.Mvc;
+using Portfolio.DataAccess.IRepository;
 
 namespace LevchenkoVladWebApplication.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly PortfolioDbContext _databaseContext;
-        public CategoryController(PortfolioDbContext databaseContext)
+        private readonly ICategoryRepository _categoryRepository;
+        public CategoryController(ICategoryRepository categoryRepository)
         {
-            _databaseContext = databaseContext;
+            _categoryRepository = categoryRepository;
         }
         public IActionResult Index()
         {
-            var categoryList = _databaseContext.CategoriesTable.ToList();
+            var categoryList = _categoryRepository.GetAll().ToList();
             return View(categoryList);
         }
         public IActionResult Create()
@@ -31,9 +32,8 @@ namespace LevchenkoVladWebApplication.Controllers
 
             if(ModelState.IsValid)
             {
-                _databaseContext.CategoriesTable.Add(category);
-                _databaseContext.SaveChanges();
-
+                _categoryRepository.Add(category);
+                _categoryRepository.Save();
                 TempData["success"] = "Category created successfully";
 
                 return RedirectToAction("Index");
@@ -46,10 +46,10 @@ namespace LevchenkoVladWebApplication.Controllers
             {
                 return NotFound();
             }
-            
-            Category? categorFromDB = _databaseContext.CategoriesTable.Where(obj => obj.Id == id).FirstOrDefault();
 
-            if(categorFromDB == null) 
+            Category? categorFromDB = _categoryRepository.GetFirstOrDefuoult(item => item.Id == id);
+
+            if (categorFromDB == null) 
             {
                 return NotFound();
             }
@@ -66,8 +66,8 @@ namespace LevchenkoVladWebApplication.Controllers
 
             if (ModelState.IsValid)
             {
-                _databaseContext.CategoriesTable.Update(category);
-                _databaseContext.SaveChanges();
+                _categoryRepository.Update(category);
+                _categoryRepository.Save();
 
                 TempData["success"] = "Category updated successfully";
 
@@ -82,7 +82,7 @@ namespace LevchenkoVladWebApplication.Controllers
                 return NotFound();
             }
 
-            Category? categorFromDB = _databaseContext.CategoriesTable.Where(obj => obj.Id == id).FirstOrDefault();
+            Category? categorFromDB = _categoryRepository.GetFirstOrDefuoult(item => item.Id == id);
 
             if (categorFromDB == null)
             {
@@ -94,13 +94,13 @@ namespace LevchenkoVladWebApplication.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePOST(int? id)
         {
-            Category? category = _databaseContext.CategoriesTable.Find(id);
+            Category? category = _categoryRepository.GetFirstOrDefuoult(item => item.Id == id);
             if (category == null)
             {
                 return NotFound();
             }
-            _databaseContext.CategoriesTable.Remove(category);
-            _databaseContext.SaveChanges();
+            _categoryRepository.Delete(category);
+            _categoryRepository.Save();
 
             TempData["success"] = "Category deleted successfully";
 
