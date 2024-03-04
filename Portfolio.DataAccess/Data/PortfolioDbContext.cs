@@ -8,6 +8,7 @@ namespace Portfolio.DataAccess.Data
         public PortfolioDbContext(DbContextOptions<PortfolioDbContext> options) : base(options) { }
 
         public DbSet<Category> CategoriesTable { get; set; }
+        public DbSet<QuestionAndAnswer> QuestionAndAnswersTable { get; set; }
         //Seed Category Table to DB
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

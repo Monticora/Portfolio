@@ -12,10 +12,12 @@ namespace Portfolio.DataAccess.Repository
     {
         private PortfolioDbContext _portfolioDbContext;
         public ICategoryRepository CategoryRepository { get; private set; }
+        public IQARepository QARepository { get; private set; }
         public UnitOfWork(PortfolioDbContext portfolioDbContext)
         {
             _portfolioDbContext = portfolioDbContext;
             CategoryRepository = new CategoryRepository(portfolioDbContext);
+            QARepository = new QARepository(portfolioDbContext);
         }
         public void Save()
         {
