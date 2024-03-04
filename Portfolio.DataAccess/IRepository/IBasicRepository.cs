@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Portfolio.DataAccess.IRepository
 {
-    public interface IRepositoryProccess<T> where T : class
+    public interface IBasicRepository<T> where T : class
     {
         IEnumerable<T> GetAll();
         T GetFirstOrDefuoult(Expression<Func<T, bool>> filter);

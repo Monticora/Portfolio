@@ -1,5 +1,4 @@
-﻿using Portfolio.DataAccess.Data;
-using Portfolio.Models;
+﻿using Portfolio.Models;
 using Microsoft.AspNetCore.Mvc;
 using Portfolio.DataAccess.IRepository;
 
@@ -7,14 +6,14 @@ namespace LevchenkoVladWebApplication.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly ICategoryRepository _categoryRepository;
-        public CategoryController(ICategoryRepository categoryRepository)
+        private readonly IUnitOfWork _unitOfWork;
+        public CategoryController(IUnitOfWork unitOfWork)
         {
-            _categoryRepository = categoryRepository;
+            _unitOfWork = unitOfWork;
         }
         public IActionResult Index()
         {
-            var categoryList = _categoryRepository.GetAll().ToList();
+            var categoryList = _unitOfWork.CategoryRepository.GetAll().ToList();
             return View(categoryList);
         }
         public IActionResult Create()
@@ -32,8 +31,8 @@ namespace LevchenkoVladWebApplication.Controllers
 
             if(ModelState.IsValid)
             {
-                _categoryRepository.Add(category);
-                _categoryRepository.Save();
+                _unitOfWork.CategoryRepository.Add(category);
+                _unitOfWork.Save();
                 TempData["success"] = "Category created successfully";
 
                 return RedirectToAction("Index");
@@ -47,7 +46,7 @@ namespace LevchenkoVladWebApplication.Controllers
                 return NotFound();
             }
 
-            Category? categorFromDB = _categoryRepository.GetFirstOrDefuoult(item => item.Id == id);
+            Category? categorFromDB = _unitOfWork.CategoryRepository.GetFirstOrDefuoult(item => item.Id == id);
 
             if (categorFromDB == null) 
             {
@@ -66,8 +65,8 @@ namespace LevchenkoVladWebApplication.Controllers
 
             if (ModelState.IsValid)
             {
-                _categoryRepository.Update(category);
-                _categoryRepository.Save();
+                _unitOfWork.CategoryRepository.Update(category);
+                _unitOfWork.Save();
 
                 TempData["success"] = "Category updated successfully";
 
@@ -82,7 +81,7 @@ namespace LevchenkoVladWebApplication.Controllers
                 return NotFound();
             }
 
-            Category? categorFromDB = _categoryRepository.GetFirstOrDefuoult(item => item.Id == id);
+            Category? categorFromDB = _unitOfWork.CategoryRepository.GetFirstOrDefuoult(item => item.Id == id);
 
             if (categorFromDB == null)
             {
@@ -94,13 +93,13 @@ namespace LevchenkoVladWebApplication.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePOST(int? id)
         {
-            Category? category = _categoryRepository.GetFirstOrDefuoult(item => item.Id == id);
+            Category? category = _unitOfWork.CategoryRepository.GetFirstOrDefuoult(item => item.Id == id);
             if (category == null)
             {
                 return NotFound();
             }
-            _categoryRepository.Delete(category);
-            _categoryRepository.Save();
+            _unitOfWork.CategoryRepository.Delete(category);
+            _unitOfWork.Save();
 
             TempData["success"] = "Category deleted successfully";
 

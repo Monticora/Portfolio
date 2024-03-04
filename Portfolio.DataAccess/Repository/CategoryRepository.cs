@@ -12,12 +12,6 @@ namespace Portfolio.DataAccess.Repository
         {
             _portfolioDbContext = portfolioDbContext;
         }
-
-        public void Save()
-        {
-            _portfolioDbContext.SaveChanges();
-        }
-
         public void Update(Category category)
         {
             _portfolioDbContext.CategoriesTable.Update(category);

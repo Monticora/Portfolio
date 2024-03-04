@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace Portfolio.DataAccess.Repository
 {
-    public class RepositoryProccess<T> : IRepositoryProccess<T> where T : class
+    public class RepositoryProccess<T> : IBasicRepository<T> where T : class
     {
         private readonly PortfolioDbContext _portfolioDbContext;
         internal DbSet<T> dbSet;
