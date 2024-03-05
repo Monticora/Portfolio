@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Portfolio.DataAccess.IRepository;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Portfolio.Models.ViewModels;
 
 namespace LevchenkoVladWebApplication.Areas.Admin.Controllers
 {
@@ -19,59 +20,50 @@ namespace LevchenkoVladWebApplication.Areas.Admin.Controllers
 
             return View(qaList);
         }
-        public IActionResult Create()
+        public IActionResult CreateOrUpdate(int? id)
         {
-            IEnumerable<SelectListItem> CategoryList = _unitOfWork.CategoryRepository.GetAll().ToList().Select(c => new SelectListItem
+            QAViewModel qaViewModel = new QAViewModel()
             {
-                Text = c.Name,
-                Value = c.Id.ToString()
-            });
+                CategoryList = _unitOfWork.CategoryRepository.GetAll().ToList().Select(c => new SelectListItem
+                {
+                    Text = c.Name,
+                    Value = c.Id.ToString()
+                }),
+                QA = new QuestionAndAnswer()
+            };
+            //creat part
+            if(id == null || id == 0)
+            {
+                return View(qaViewModel);
+            }
+            //update part
+            else
+            {
+                qaViewModel.QA = _unitOfWork.QARepository.GetFirstOrDefuoult(c => c.Id == id);
 
-            ViewBag.CategoryList = CategoryList;
-
-            return View();
+                return View(qaViewModel);
+            }
         }
         [HttpPost]
-        public IActionResult Create(QuestionAndAnswer qa)
+        public IActionResult CreateOrUpdate(QAViewModel qaViewModel)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.QARepository.Add(qa);
+                _unitOfWork.QARepository.Add(qaViewModel.QA);
                 _unitOfWork.Save();
                 TempData["success"] = "QA created successfully";
 
                 return RedirectToAction("Index");
             }
-            return View();
-        }
-        public IActionResult Edit(int? id)
-        {
-            if (id == null || id == 0)
+            else
             {
-                return NotFound();
+                qaViewModel.CategoryList = _unitOfWork.CategoryRepository.GetAll().ToList().Select(c => new SelectListItem
+                {
+                    Text = c.Name,
+                    Value = c.Id.ToString()
+                });
+                return View(qaViewModel);
             }
-
-            QuestionAndAnswer? qaFromDB = _unitOfWork.QARepository.GetFirstOrDefuoult(item => item.Id == id);
-
-            if (qaFromDB == null)
-            {
-                return NotFound();
-            }
-            return View(qaFromDB);
-        }
-        [HttpPost]
-        public IActionResult Edit(QuestionAndAnswer qa)
-        {
-            if (ModelState.IsValid)
-            {
-                _unitOfWork.QARepository.Update(qa);
-                _unitOfWork.Save();
-
-                TempData["success"] = "QA updated successfully";
-
-                return RedirectToAction("Index");
-            }
-            return View();
         }
         public IActionResult Delete(int? id)
         {

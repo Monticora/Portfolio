@@ -4,7 +4,7 @@
 }
 <h1>QA List:</h1>
 
-<a asp-controller="QA" asp-action="Create">
+<a asp-controller="QA" asp-action="CreateOrUpdate">
     Create QA
 </a>
 <table class="table table-bordered table-striped">
@@ -15,6 +15,9 @@
             </th>
             <th>
                 Answer
+            </th>
+            <th>
+                Category
             </th>
             <th></th>
         </tr>
@@ -30,8 +33,11 @@
                     @qa.Answer
                 </td>
                 <td>
+                    @* @qa.Category.Name *@
+                </td>
+                <td>
                    <div class="w-75 btn-group" role="group">
-                        <a asp-controller="QA" asp-action="Edit" asp-route-id="@qa.Id" class="btn btn-primary mx-2">
+                        <a asp-controller="QA" asp-action="CreateOrUpdate" asp-route-id="@qa.Id" class="btn btn-primary mx-2">
                             Edit
                         </a>
                         <a asp-controller="QA" asp-action="Delete" asp-route-id="@qa.Id" class="btn btn-danger mx-2">
