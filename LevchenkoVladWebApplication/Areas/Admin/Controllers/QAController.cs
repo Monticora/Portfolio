@@ -16,7 +16,7 @@ namespace LevchenkoVladWebApplication.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            var qaList = _unitOfWork.QARepository.GetAll().ToList();
+            var qaList = _unitOfWork.QARepository.GetAll(includeProperties:"Category").ToList();
 
             return View(qaList);
         }
@@ -49,9 +49,17 @@ namespace LevchenkoVladWebApplication.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.QARepository.Add(qaViewModel.QA);
+                if(qaViewModel.QA.Id == 0)
+                {
+                    _unitOfWork.QARepository.Add(qaViewModel.QA);
+                    TempData["success"] = "QA created successfully";
+                }
+                else
+                {
+                    _unitOfWork.QARepository.Update(qaViewModel.QA);
+                    TempData["success"] = "QA updated successfully";
+                }
                 _unitOfWork.Save();
-                TempData["success"] = "QA created successfully";
 
                 return RedirectToAction("Index");
             }
@@ -62,8 +70,8 @@ namespace LevchenkoVladWebApplication.Areas.Admin.Controllers
                     Text = c.Name,
                     Value = c.Id.ToString()
                 });
-                return View(qaViewModel);
             }
+            return View(qaViewModel);
         }
         public IActionResult Delete(int? id)
         {

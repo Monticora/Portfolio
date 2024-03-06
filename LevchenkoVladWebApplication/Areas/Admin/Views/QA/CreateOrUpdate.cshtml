@@ -11,14 +11,12 @@
         </div>
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="mb-3">
-            <label asp-for="QA.Question"></label>
-            <input asp-for="QA.Question" type="text" class="form-control"/>
-            <span asp-validation-for="QA.Question" class="text-danger"></span>
+            <label asp-for="QA.Question" text-muted></label>
+            <textarea asp-for="QA.Question"></textarea>
         </div>
         <div class="mb-3">
-            <label asp-for="QA.Answer"></label>
-            <input asp-for="QA.Answer" type="text" class="form-control" />
-            <span asp-validation-for="QA.Answer" class="text-danger"></span>
+            <label asp-for="QA.Answer" text-muted></label>
+            <textarea asp-for="QA.Answer"></textarea>
         </div>
         <div class="mb-3">
             <select asp-for="QA.CategoryId" asp-items="@Model.CategoryList">
@@ -32,3 +30,20 @@
         </a>
     </div>
 </form>
+
+@section Scripts{
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name',
+            mergetags_list: [
+                { value: 'First.Name', title: 'First Name' },
+                { value: 'Email', title: 'Email' },
+            ],
+            ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+        });
+    </script>
+}
