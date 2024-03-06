@@ -19,8 +19,8 @@
             <textarea asp-for="QA.Answer"></textarea>
         </div>
         <div class="mb-3">
+            <label text-muted>Choose category:</label>
             <select asp-for="QA.CategoryId" asp-items="@Model.CategoryList">
-                <option disabled selected>Select Category</option>
             </select>
             <span asp-validation-for="QA.CategoryId" class="text-danger"></span>
         </div>

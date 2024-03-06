@@ -11,11 +11,11 @@
         </div>
         <div class="mb-3">
             <label asp-for="Question"></label>
-            <input asp-for="Question" type="text" disabled class="form-control" />
+            @Html.Raw(Model.Question)
         </div>
         <div class="mb-3">
             <label asp-for="Answer"></label>
-            <input asp-for="Answer" type="text" disabled class="form-control" />
+            @Html.Raw(Model.Answer)
         </div>
         <button type="submit" class="btn btn-primary" styly="width:150px">Delete</button>
         <a asp-controller="QA" asp-action="Index" class="btn btn-secondary" style="width:150px">

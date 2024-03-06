@@ -12,9 +12,11 @@ namespace Portfolio.Models
         public string? Question { get; set; }
         [Required]
         public string? Answer { get; set; }
+        [Required]
         public int CategoryId { get; set; }
         [ForeignKey("CategoryId")]
         [ValidateNever]
+        [Required]
         public Category Category { get; set; }
     }
 }
