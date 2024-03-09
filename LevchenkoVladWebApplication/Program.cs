@@ -3,6 +3,8 @@ using Portfolio.DataAccess.Data;
 using Portfolio.DataAccess.IRepository;
 using Portfolio.DataAccess.Repository;
 using Microsoft.AspNetCore.Identity;
+using Portfolio.Utility;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 //Services
 var builder = WebApplication.CreateBuilder(args);
@@ -12,11 +14,13 @@ builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.Services.AddDbContext<PortfolioDbContext>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<PortfolioDbContext>();
-
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<PortfolioDbContext>().AddDefaultTokenProviders();
+//Add razor pages
 builder.Services.AddRazorPages();
-
+//Dependency injections
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IEmailSender,EmailSender>();
 
 //Building everything
 var app = builder.Build();
