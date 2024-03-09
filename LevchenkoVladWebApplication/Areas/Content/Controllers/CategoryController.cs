@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Portfolio.DataAccess.IRepository;
 
-namespace LevchenkoVladWebApplication.Areas.Admin.Controllers
+namespace LevchenkoVladWebApplication.Areas.Content.Controllers
 {
-    [Area("Admin")]
+    [Area("Content")]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

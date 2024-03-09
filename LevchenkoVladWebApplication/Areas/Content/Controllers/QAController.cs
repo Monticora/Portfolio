@@ -4,9 +4,9 @@ using Portfolio.DataAccess.IRepository;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Portfolio.Models.ViewModels;
 
-namespace LevchenkoVladWebApplication.Areas.Admin.Controllers
+namespace LevchenkoVladWebApplication.Areas.Content.Controllers
 {
-    [Area("Admin")]
+    [Area("Content")]
     public class QAController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
