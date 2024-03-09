@@ -13,10 +13,10 @@ namespace Portfolio.Models
         [Required]
         public string? Answer { get; set; }
         [Required]
-        public int CategoryId { get; set; }
-        [ForeignKey("CategoryId")]
+        public int SubcategoryId { get; set; }
+        [ForeignKey("SubcategoryId")]
         [ValidateNever]
         [Required]
-        public Category Category { get; set; }
+        public Subcategory Subcategory { get; set; }
     }
 }

@@ -1,0 +1,28 @@
+﻿@model SubcategoryViewModel
+@{
+    ViewData["Title"] = "Subcategory";
+}
+<form method="post">
+    <input asp-for="Subcategory.Id" hidden />
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">@(Model.Subcategory.Id != 0 ? "Update" : "Create") QA</h2>
+            <hr />
+        </div>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="mb-3">
+            <label asp-for="Subcategory.Name" text-muted></label>
+            <input asp-for="Subcategory.Name"/>
+        </div>
+        <div class="mb-3">
+            <label text-muted>Choose category:</label>
+            <select asp-for="Subcategory.CategoryId" asp-items="@Model.CategoryList">
+            </select>
+            <span asp-validation-for="Subcategory.CategoryId" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary" styly="width:150px">@(Model.Subcategory.Id != 0 ? "Update" : "Create") QA</button>
+        <a asp-controller="Subcategory" asp-action="Index" class="btn btn-secondary" style="width:150px">
+            Back to List
+        </a>
+    </div>
+</form>

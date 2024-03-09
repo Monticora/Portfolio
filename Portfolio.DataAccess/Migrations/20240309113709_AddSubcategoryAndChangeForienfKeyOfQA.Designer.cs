@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Portfolio.DataAccess.Data;
 
@@ -11,9 +12,11 @@ using Portfolio.DataAccess.Data;
 namespace Portfolio.DataAccess.Migrations
 {
     [DbContext(typeof(PortfolioDbContext))]
-    partial class PortfolioDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240309113709_AddSubcategoryAndChangeForienfKeyOfQA")]
+    partial class AddSubcategoryAndChangeForienfKeyOfQA
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -276,7 +279,7 @@ namespace Portfolio.DataAccess.Migrations
                     b.ToTable("QuestionAndAnswersTable");
                 });
 
-            modelBuilder.Entity("Portfolio.Models.Subcategory", b =>
+            modelBuilder.Entity("Portfolio.Models.Subategory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -284,13 +287,16 @@ namespace Portfolio.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Answer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Question")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -352,7 +358,7 @@ namespace Portfolio.DataAccess.Migrations
 
             modelBuilder.Entity("Portfolio.Models.QuestionAndAnswer", b =>
                 {
-                    b.HasOne("Portfolio.Models.Subcategory", "Subcategory")
+                    b.HasOne("Portfolio.Models.Subategory", "Subcategory")
                         .WithMany()
                         .HasForeignKey("SubcategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -361,7 +367,7 @@ namespace Portfolio.DataAccess.Migrations
                     b.Navigation("Subcategory");
                 });
 
-            modelBuilder.Entity("Portfolio.Models.Subcategory", b =>
+            modelBuilder.Entity("Portfolio.Models.Subategory", b =>
                 {
                     b.HasOne("Portfolio.Models.Category", "Category")
                         .WithMany()

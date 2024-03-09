@@ -20,9 +20,9 @@
         </div>
         <div class="mb-3">
             <label text-muted>Choose category:</label>
-            <select asp-for="QA.CategoryId" asp-items="@Model.CategoryList">
+            <select asp-for="QA.SubcategoryId" asp-items="@Model.SubcategoryList">
             </select>
-            <span asp-validation-for="QA.CategoryId" class="text-danger"></span>
+            <span asp-validation-for="QA.SubcategoryId" class="text-danger"></span>
         </div>
         <button type="submit" class="btn btn-primary" styly="width:150px">@(Model.QA.Id != 0 ? "Update" : "Create") QA</button>
         <a asp-controller="QA" asp-action="Index" class="btn btn-secondary" style="width:150px">

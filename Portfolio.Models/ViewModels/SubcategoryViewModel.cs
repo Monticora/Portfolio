@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.Rendering;
+
 namespace Portfolio.Models.ViewModels
 {
-    public class QAViewModel
+    public class SubcategoryViewModel
     {
-        public QuestionAndAnswer QA { get; set; }
+        public Subcategory Subcategory { get; set; }
         [ValidateNever]
-        public IEnumerable<SelectListItem> SubcategoryList { get; set; }
+        public IEnumerable<SelectListItem> CategoryList { get; set; }
     }
 }

@@ -16,7 +16,7 @@ namespace LevchenkoVladWebApplication.Areas.Content.Controllers
         }
         public IActionResult Index(int? id)
         {
-            var qaList = _unitOfWork.QARepository.GetAll(includeProperties:"Category").Where(categoryId => categoryId.CategoryId == id).ToList();
+            var qaList = _unitOfWork.QARepository.GetAll(includeProperties: "Subcategory").Where(subcategoryId => subcategoryId.SubcategoryId == id).ToList();
 
             return View(qaList);
         }
@@ -24,7 +24,7 @@ namespace LevchenkoVladWebApplication.Areas.Content.Controllers
         {
             QAViewModel qaViewModel = new QAViewModel()
             {
-                CategoryList = _unitOfWork.CategoryRepository.GetAll().ToList().Select(c => new SelectListItem
+                SubcategoryList = _unitOfWork.SubcategoryRepository.GetAll().ToList().Select(c => new SelectListItem
                 {
                     Text = c.Name,
                     Value = c.Id.ToString()
@@ -61,11 +61,11 @@ namespace LevchenkoVladWebApplication.Areas.Content.Controllers
                 }
                 _unitOfWork.Save();
 
-                return RedirectToAction("Index", new {id = qaViewModel.QA.CategoryId });
+                return RedirectToAction("Index", new {id = qaViewModel.QA.SubcategoryId });
             }
             else
             {
-                qaViewModel.CategoryList = _unitOfWork.CategoryRepository.GetAll().ToList().Select(c => new SelectListItem
+                qaViewModel.SubcategoryList = _unitOfWork.SubcategoryRepository.GetAll().ToList().Select(c => new SelectListItem
                 {
                     Text = c.Name,
                     Value = c.Id.ToString()
@@ -103,7 +103,7 @@ namespace LevchenkoVladWebApplication.Areas.Content.Controllers
 
             TempData["success"] = "QA deleted successfully";
 
-            return RedirectToAction("Index" , new { id = qa.CategoryId });
+            return RedirectToAction("Index" , new { id = qa.SubcategoryId });
         }
     }
 }
