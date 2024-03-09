@@ -16,6 +16,14 @@ builder.Services.AddDbContext<PortfolioDbContext>(options =>
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<PortfolioDbContext>().AddDefaultTokenProviders();
+
+builder.Services.ConfigureApplicationCookie(option =>
+{
+    option.LoginPath = $"/Identity/Account/Login";
+    option.LogoutPath = $"/Identity/Account/Logout";
+    option.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+});
+
 //Add razor pages
 builder.Services.AddRazorPages();
 //Dependency injections
