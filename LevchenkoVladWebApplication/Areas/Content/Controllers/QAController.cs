@@ -14,9 +14,9 @@ namespace LevchenkoVladWebApplication.Areas.Content.Controllers
         {
             _unitOfWork = unitOfWork;
         }
-        public IActionResult Index()
+        public IActionResult Index(int? id)
         {
-            var qaList = _unitOfWork.QARepository.GetAll(includeProperties:"Category").ToList();
+            var qaList = _unitOfWork.QARepository.GetAll(includeProperties:"Category").Where(categoryId => categoryId.CategoryId == id).ToList();
 
             return View(qaList);
         }
@@ -61,7 +61,7 @@ namespace LevchenkoVladWebApplication.Areas.Content.Controllers
                 }
                 _unitOfWork.Save();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new {id = qaViewModel.QA.CategoryId });
             }
             else
             {
@@ -93,6 +93,7 @@ namespace LevchenkoVladWebApplication.Areas.Content.Controllers
         public IActionResult DeletePOST(int? id)
         {
             QuestionAndAnswer? qa = _unitOfWork.QARepository.GetFirstOrDefuoult(item => item.Id == id);
+
             if (qa == null)
             {
                 return NotFound();
@@ -102,7 +103,7 @@ namespace LevchenkoVladWebApplication.Areas.Content.Controllers
 
             TempData["success"] = "QA deleted successfully";
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index" , new { id = qa.CategoryId });
         }
     }
 }
