@@ -2,6 +2,11 @@
 @{
     ViewData["Title"] = "Subcategory";
 }
+<div>
+    <a asp-controller="Category" asp-action="Index" class="btn btn-secondary" style="width:150px">
+        Back
+    </a>
+</div>
 <h1>Subcategory List:</h1>
 
 @if (User.IsInRole(StaticDetails.Roles.Role_Admin))
@@ -57,7 +62,9 @@ else
             {
                 <tr>
                     <td>
-                        @subcategory.Name
+                        <a asp-controller="QA" asp-action="Index" asp-route-id="@subcategory.Id" class="btn btn-primary mx-2">
+                            @subcategory.Name
+                        </a>
                     </td>
                 </tr>
             }

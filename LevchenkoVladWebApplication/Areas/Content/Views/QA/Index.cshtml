@@ -2,6 +2,12 @@
 @{
     ViewData["Title"] = "QA";
 }
+<div>
+    <a asp-controller="Subcategory" asp-action="Index" class="btn btn-secondary" style="width:150px">
+        Back
+    </a>
+</div>
+
 <h1>QA List:</h1>
 
 @if (User.IsInRole(StaticDetails.Roles.Role_Admin))
@@ -9,80 +15,33 @@
     <a asp-controller="QA" asp-action="CreateOrUpdate">
         Create QA
     </a>
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>
-                    Question
-                </th>
-                <th>
-                    Answer
-                </th>
-                <th>
-                    Category
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
             @foreach (var qa in Model)
             {
-                <tr>
-                    <td>
-                        @Html.Raw(qa.Question)
-                    </td>
-                    <td>
-                        @Html.Raw(qa.Answer)
-                    </td>
-                    <td>
-                        @qa.Subcategory.Name
-                    </td>
-                    <td>
-                        <div class="w-75 btn-group" role="group">
-                            <a asp-controller="QA" asp-action="CreateOrUpdate" asp-route-id="@qa.Id" class="btn btn-primary mx-2">
-                                Edit
-                            </a>
-                            <a asp-controller="QA" asp-action="Delete" asp-route-id="@qa.Id" class="btn btn-danger mx-2">
-                                Delete
-                            </a>
-                        </div>
-                    </td>
-                </tr>
+                <div class="border-bottom">
+                   * @qa.Subcategory.Name * @Html.Raw(qa.Question)
+                </div>
+                <div class="border-top">
+                    @Html.Raw(qa.Answer)
+                </div>
+                <div class="w-75 btn-group" role="group">
+                    <a asp-controller="QA" asp-action="CreateOrUpdate" asp-route-id="@qa.Id" class="btn btn-primary mx-2">
+                        Edit
+                    </a>
+                    <a asp-controller="QA" asp-action="Delete" asp-route-id="@qa.Id" class="btn btn-danger mx-2">
+                        Delete
+                    </a>
+                </div>
             }
-        </tbody>
-    </table>
 }
 else
 {
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>
-                    Question
-                </th>
-                <th>
-                    Answer
-                </th>
-                <th>
-                    Category
-                </th>
-            </tr>
-        </thead>
-        <tbody>
             @foreach (var qa in Model)
             {
-                <tr>
-                    <td>
-                        @Html.Raw(qa.Question)
-                    </td>
-                    <td>
-                        @Html.Raw(qa.Answer)
-                    </td>
-                    <td>
-                        @qa.Subcategory.Name
-                    </td>
-                </tr>
+                <div class="border-bottom">
+                    @Html.Raw(qa.Question)          
+                </div>
+                <div class="border-top">
+                    @Html.Raw(qa.Answer)
+                </div>
             }
-        </tbody>
-    </table>
 }
