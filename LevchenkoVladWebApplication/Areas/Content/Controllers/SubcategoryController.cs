@@ -14,9 +14,9 @@ namespace LevchenkoVladWebApplication.Areas.Content.Controllers
         {
             _unitOfWork = unitOfWork;
         }
-        public IActionResult Index()
+        public IActionResult Index(int? id)
         {
-            var subcategories = _unitOfWork.SubcategoryRepository.GetAll().ToList();
+            var subcategories = _unitOfWork.SubcategoryRepository.GetAll().Where(categoryId => categoryId.CategoryId == id).ToList();
             return View(subcategories);
         }
         public IActionResult CreateOrUpdate(int? id)
@@ -72,6 +72,21 @@ namespace LevchenkoVladWebApplication.Areas.Content.Controllers
             }
             return View(subcategoryViewModel);
         }
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            Subcategory? subcategorFromDB = _unitOfWork.SubcategoryRepository.GetFirstOrDefuoult(item => item.Id == id);
+
+            if (subcategorFromDB == null)
+            {
+                return NotFound();
+            }
+            return View(subcategorFromDB);
+        }
         [HttpPost]
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePOST(int? id)
@@ -86,7 +101,7 @@ namespace LevchenkoVladWebApplication.Areas.Content.Controllers
 
             TempData["success"] = "Subcategory deleted successfully";
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { id = subcategoryFromDB.CategoryId });
         }
     }
 }

@@ -2,8 +2,9 @@
 @{
     ViewData["Title"] = "QA";
 }
+
 <div>
-    <a asp-controller="Subcategory" asp-action="Index" class="btn btn-secondary" style="width:150px">
+    <a asp-controller="Subcategory" asp-action="Index" asp-route-id="@(Model.Count() != 0 ? Model.ElementAt(0).Subcategory.CategoryId : null)" class="btn btn-secondary" style="width:150px">
         Back
     </a>
 </div>

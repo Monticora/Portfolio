@@ -21,7 +21,7 @@
             <span asp-validation-for="Subcategory.CategoryId" class="text-danger"></span>
         </div>
         <button type="submit" class="btn btn-primary" styly="width:150px">@(Model.Subcategory.Id != 0 ? "Update" : "Create") QA</button>
-        <a asp-controller="Subcategory" asp-action="Index" class="btn btn-secondary" style="width:150px">
+        <a asp-controller="Subcategory" asp-action="Index" asp-route-id="@Model.Subcategory.CategoryId" class="btn btn-secondary" style="width:150px">
             Back to List
         </a>
     </div>
