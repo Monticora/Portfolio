@@ -16,6 +16,9 @@
     <a asp-controller="QA" asp-action="CreateOrUpdate">
         Create QA
     </a>
+    <div>
+        Кількість питань @Model.Count()
+    </div>
             @foreach (var qa in Model)
             {
                 <div class="border-bottom">
